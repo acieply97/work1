@@ -28,14 +28,16 @@ class Script:
         if n > self.width_rgb*self.height_rgb:
             raise ValueError("Liczba N przekracza rozmiar obrazu")                  # zapobiega utworzeniu ilości wycięć większej niż ilość pixeli w obrazie
 
+        if m % 2 == 0:
+            raise ValueError("Liczba M musi być nieparzysta")
         self.random_fun(n)
 
         s = 0
 
         for z in range(n):
-            box_new = (self.arr_points[z][0] - math.floor(m / 2), self.arr_points[z][1] - math.floor(m / 2),
-                       self.arr_points[z][0] + math.floor(m / 2), self.arr_points[z][1] + math.floor(m / 2))    #uciety obraz jest pixel mniejszy, niz zaklada zadanie, przy wartosci nieparzystej M
-                                                                                                                #nie bedzie srodka kwadratu MxM
+            box_new = (self.arr_points[z][0] - (m - 1 / 2), self.arr_points[z][1] - (m - 1 / 2),
+                       self.arr_points[z][0] + (m - 1 / 2), self.arr_points[z][1] + (m - 1 / 2))  #Obliczana przestrzeń wycinków
+
             crop_img = im.crop(box_new)
 
             if self.arr_classify[self.arr_points[z][0]][self.arr_points[z][1]] == 1:
