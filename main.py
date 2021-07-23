@@ -23,7 +23,7 @@ class Script:
         self.classify()
         self.cut(N, M)
 
-    def check_input(self, m, n):
+    def check_input(self, m, n):  #Zabezpieczenia wartości wejściowych/początkowych
 
         if n > self.width_rgb*self.height_rgb:
             raise ValueError("Liczba N przekracza rozmiar obrazu")                  # zapobiega utworzeniu ilości wycięć większej niż ilość pixeli w obrazie
@@ -37,7 +37,6 @@ class Script:
 
         if type(m) != int:
             raise TypeError("Liczba M musi być całkowita")
-
 
     def cut(self, n, m):
         im = Image.open(r"venv/pictures/rgb.png")
