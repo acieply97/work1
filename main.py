@@ -1,6 +1,5 @@
 import cv2
 import random
-import math
 from PIL import Image
 
 
@@ -16,14 +15,15 @@ class Script:
 
         self.thresh = cv2.threshold(self.classes_file, 127, 255, cv2.THRESH_BINARY)[1] #zapewnia obraz czarno-biały
 
-        N = 100
+        N = 10
         M = 701
+
+        self.check_input(M, N)
 
         self.classify()
         self.cut(N, M)
 
-    def cut(self, n, m):
-        im = Image.open(r"venv/pictures/rgb.png")
+    def check_input(self, m, n):
 
         if n > self.width_rgb*self.height_rgb:
             raise ValueError("Liczba N przekracza rozmiar obrazu")                  # zapobiega utworzeniu ilości wycięć większej niż ilość pixeli w obrazie
@@ -31,6 +31,16 @@ class Script:
         if m % 2 == 0:
             raise ValueError("Liczba M musi być nieparzysta")
         self.random_fun(n)
+
+        if type(n) != int:
+            raise TypeError("Liczba N musi być całkowita")
+
+        if type(m) != int:
+            raise TypeError("Liczba M musi być całkowita")
+
+
+    def cut(self, n, m):
+        im = Image.open(r"venv/pictures/rgb.png")
 
         s = 0
 
